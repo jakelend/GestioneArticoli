@@ -9,11 +9,11 @@ public class GestioneMagazzino
 
       // Chiedo all'utente di inserire il nome e la password dell'utente 
       System.out.print("Nome dell'utente da creare: ");
-      String nome = input.nextLine();
+      String nome = input.next();
 
       // Chiedo la psw 
       System.out.print("Inserire la psw dell'account: ");
-      String psw = input.nextLine();
+      String psw = input.next();
 
       // Chiedo il livello dell'utente 
       System.out.print("Livello utente 0 user - 1 admin: ");
@@ -36,7 +36,7 @@ public class GestioneMagazzino
          pswTemp = input.next();
 
          // Controllo della pasw 
-         if (utente.psw == pswTemp) 
+         if (utente.psw.equals(pswTemp)) 
          {
             // Aggiorno il flag 
             flag = false;
@@ -46,10 +46,10 @@ public class GestioneMagazzino
          // Incremento la prova di accesso 
          proveAccesso++;
          
-      } while ((proveAccesso != 2) && flag);
+      } while ((proveAccesso < 2) && flag);
 
       // Controllo se la psw è stata azzeccata 
-      if (flag) 
+      if (proveAccesso != 2) 
       {
          // Scelta dell'utente 
          int scelta = 0;
@@ -110,13 +110,15 @@ public class GestioneMagazzino
                   double costoProdotto = input.nextDouble();
 
                   // Chiedo all'utente i nuovi parametri da inserire  
-                  System.out.print("Inserire il nuovo nome del prodotto");
+                  System.out.print("Inserire il nuovo nome del prodotto: ");
                   String nomeProdottoAg = input.next();
-                  System.out.print("Inserire il nuovo costo del prodotto");
+                  System.out.print("Inserire il nuovo costo del prodotto: ");
                   double costoProdottoAg = input.nextDouble();
+                  System.out.print("Inserire la nuova quantita' del prodotto: ");
+                  int quantita = input.nextInt();
 
                   // Chiamo il metodo per aggiornare il prodotto 
-                  vetProdotti.setProdotto(nomeProdotto, costoProdotto, nomeProdottoAg, costoProdottoAg);
+                  vetProdotti.setProdotto(nomeProdotto, costoProdotto, nomeProdottoAg, costoProdottoAg, quantita);
                   System.out.println("Prodotto Aggiornato");
                }
                else if (scelta == 4) 
@@ -148,13 +150,15 @@ public class GestioneMagazzino
                   double costoProdotto = input.nextDouble();
 
                   // Chiedo all'utente i nuovi parametri da inserire  
-                  System.out.print("Inserire il nuovo nome del prodotto");
+                  System.out.print("Inserire il nuovo nome del prodotto: ");
                   String nomeProdottoAg = input.next();
-                  System.out.print("Inserire il nuovo costo del prodotto");
+                  System.out.print("Inserire il nuovo costo del prodotto: ");
                   double costoProdottoAg = input.nextDouble();
+                  System.out.print("Inserire la nuova quantita' del prodotto: ");
+                  int quantita = input.nextInt();
 
                   // Chiamo il metodo per aggiornare il prodotto 
-                  vetProdotti.setProdotto(nomeProdotto, costoProdotto, nomeProdottoAg, costoProdottoAg);
+                  vetProdotti.setProdotto(nomeProdotto, costoProdotto, nomeProdottoAg, costoProdottoAg, quantita);
                   System.out.println("Prodotto Aggiornato");
                }
                else if (scelta == 2) 
@@ -169,5 +173,7 @@ public class GestioneMagazzino
       {
          System.out.println("Utente bloccato");
       }
+
+      input.close();
    }
 }

@@ -9,7 +9,7 @@ public class GestioneProdotti
    // Costruttore di default 
    public GestioneProdotti()
    {
-   
+      vetProdotti = new ArrayList<Prodotto>();
    }
 
    // Metodi per effettuare le varie operazioni sul vettore di prodotti 
@@ -19,17 +19,26 @@ public class GestioneProdotti
       // se lo trovo il flag diventa false, se non lo trovo rimane true 
       boolean flag = true;
 
-      // Ricerca del prodotto tramite il nome ed il costo
-      for (int i = 0; i < vetProdotti.size(); i++) 
+      // Controllo se la lista sia vuota 
+      if(vetProdotti.isEmpty())
       {
-         // Controllo se il prodotto attuale sia quello da elimanre 
-         if ((vetProdotti.get(i).nome == prodotto.nome) && (vetProdotti.get(i).costo == prodotto.costo)) 
+         vetProdotti.add(prodotto);
+         flag = false;
+      }
+      else
+      {
+         // Ricerca del prodotto tramite il nome ed il costo
+         for (int i = 0; i < vetProdotti.size(); i++) 
          {
-            // Aggiorno le proprità del prodotto 
-            vetProdotti.get(i).quantita += 1;
-            flag = false;
-         }
-      } 
+            // Controllo se il prodotto attuale sia quello da elimanre 
+            if ((vetProdotti.get(i).nome.equals(prodotto.nome)) && (vetProdotti.get(i).costo == prodotto.costo)) 
+            {
+               // Aggiorno le proprità del prodotto 
+               vetProdotti.get(i).quantita += prodotto.quantita;
+               flag = false;
+            }
+         } 
+      }
       
       // Verifica se il prodotto non è stato trovato
       if (flag) 
@@ -45,7 +54,7 @@ public class GestioneProdotti
       for (int i = 0; i < vetProdotti.size(); i++) 
       {
          // Controllo se il prodotto attuale sia quello da elimanre 
-         if (vetProdotti.get(i).nome == nomeProdotto) 
+         if (vetProdotti.get(i).nome.equals(nomeProdotto)) 
          {
             // Elimino il prodotto 
             vetProdotti.remove(i);
@@ -54,17 +63,18 @@ public class GestioneProdotti
    }
 
    // Aggiorno un prodotto 
-   void setProdotto(String vecchioNome, double vecchioCosto, String nuovoNome, double nuovoCosto)
+   void setProdotto(String vecchioNome, double vecchioCosto, String nuovoNome, double nuovoCosto, int quantita)
    {
       // Ricerco il prodotto 
       for (int i = 0; i < vetProdotti.size(); i++) 
       {
          // Controllo se il prodotto attuale sia quello da elimanre 
-         if ((vetProdotti.get(i).nome == vecchioNome) && (vetProdotti.get(i).costo == vecchioCosto)) 
+         if ((vetProdotti.get(i).nome.equals(vecchioNome)) && (vetProdotti.get(i).costo == vecchioCosto)) 
          {
             // Aggiorno le proprità del prodotto 
             vetProdotti.get(i).nome = nuovoNome;
             vetProdotti.get(i).costo = nuovoCosto;
+            vetProdotti.get(i).quantita = quantita;
          }
       }
    }
@@ -72,6 +82,17 @@ public class GestioneProdotti
    // Stampa dei prodotti 
    void stampaProdotti()
    {
-      System.out.println(vetProdotti);
+      if (!vetProdotti.isEmpty()) 
+      {
+         for (int i = 0; i < vetProdotti.size(); i++) 
+         {
+            System.out.println("Nome: " + vetProdotti.get(i).nome 
+            + " Costo: " + vetProdotti.get(i).costo + " Quantita': "  + vetProdotti.get(i).quantita);
+         }
+      }
+      else
+      {
+         System.out.println("Nessun prodotto presente");
+      }
    }
 }
